@@ -1,4 +1,11 @@
 circle {
-    fill: black;
-    opacity: 0.3;
+    fill: red;
+    opacity: 0.2;
+    stroke: black;
+    stroke-width: 1px;
 }
+
+svg {
+    border: 1px solid;
+}
+

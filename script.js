@@ -1,23 +1,43 @@
 function zoomFiltering(divId) {
-    var width = 550, height=400, maxR=20;
+    var width = 400, height=300, maxR=30;
 
     var svg = d3.select(divId)
                 .append('svg')
                 .attr('width', width)
                 .attr('height', height)
+    var g = svg.append('g')
 
     // create 15 circles
+    var numCircles = 55;
     var circles = [];
-    for (var i = 0; i < 15; i++)
+    for (var i = 0; i < numCircles; i++)
         circles.push({'x': 1+Math.floor(Math.random() * width),
                 'y': 1+Math.floor(Math.random() * height),
                 'r': 1+Math.floor(Math.random() * maxR)});
 
-    svg.selectAll('circle')
+    g.selectAll('circle')
         .data(circles)
         .enter()
         .append('circle')
         .attr('cx', function(d) { return d.x; })
         .attr('cy', function(d) { return d.y; })
         .attr('r', function(d) { return d.r; })
+        .classed('no-zoom', true)
+
+    var zoom = d3.zoom()
+                 .filter(() => {
+                    if (d3.event.path[0].classList.contains('no-zoom'))
+                        return false;
+                    return true;
+                 })
+                 .on('zoom', function(d) { 
+                     g.attr('transform', d3.event.transform);
+                 });
+     svg.append('text')
+         .attr('x', 35)
+         .attr('y', 20)
+         .text("Red circles are immune to scroll-wheel zooming")
+         .style('font', 'sans-serif 14pt');
+
+    svg.call(zoom);
 }
