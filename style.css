@@ -7,5 +7,7 @@ circle {
 
 svg {
     border: 1px solid;
+    font: 13px sans-serif;
+    text-anchor: middle;
 }
 

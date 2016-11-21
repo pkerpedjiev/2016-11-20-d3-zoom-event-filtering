@@ -33,11 +33,15 @@ function zoomFiltering(divId) {
                  .on('zoom', function(d) { 
                      g.attr('transform', d3.event.transform);
                  });
-     svg.append('text')
-         .attr('x', 35)
-         .attr('y', 20)
-         .text("Red circles are immune to scroll-wheel zooming")
-         .style('font', 'sans-serif 14pt');
+     var texts = ["The red circles don't allow scroll-wheel zooming and",
+                  "drag-based panning"]
+     svg.selectAll('text')
+        .data(texts)
+        .enter()
+        .append('text')
+        .attr('x', 200)
+        .attr('y', function(d,i) { return 20 + i * 20; })
+        .text(function(d) { return d; });
 
     svg.call(zoom);
 }
