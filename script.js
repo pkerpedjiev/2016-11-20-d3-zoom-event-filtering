@@ -1,5 +1,5 @@
 function zoomFiltering(divId) {
-    var width = 400, height=300, maxR=30;
+    var width = 400, height=250, maxR=30;
 
     var svg = d3.select(divId)
                 .append('svg')
